@@ -8,13 +8,7 @@
         
     </head>
     <body class="antialiased">
-        <h1>野球実況.com</h1>
-        <h1>ルーム一覧</h1>
-        
-        <div>
-            <p>
-                <a href="/posts/create">作成</a>
-            </p>
-        </div>
+        <h1>hsajfhkjshnjfans</h1>
+
     </body>
 </html>
