@@ -16,3 +16,5 @@ use App\Http\Controllers\ChatController;
 Route::get('/', [Chatcontroller::class, 'index']);
 
 Route::get('/posts/create', [Chatcontroller::class, 'create']);
+
+Route::get('/posts/room_info', [Chatcontroller::class, 'room_info']);

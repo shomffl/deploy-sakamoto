@@ -15,4 +15,8 @@ class ChatController extends Controller
     {
         return view('posts/create');
     }
+    public function room_info()
+    {
+        return view('posts/room_info');
+    }
 }

@@ -8,8 +8,42 @@
         
     </head>
     <body class="antialiased">
-        <h1>野球実況.com</h1>
-        <h1>ルーム一覧</h1>
+        <div>
+            <h1>野球実況.com</h1>
+        </div>
+        <div>
+            <div>
+               <p>2011/11/20 18:00</p>
+               <P>野球を見よう</P>
+               <P>野球を見たい人大歓迎</P>
+               <P>坂本真人</P>
+            </div>
+            <div>
+                <a href="posts/room_info">のぞいてみる</a>
+            </div>
+        </div>
+        <div>
+            <div>
+               <p>2011/11/20 18:00</p>
+               <P>野球を見よう</P>
+               <P>野球を見たい人大歓迎</P>
+               <P>坂本真人</P>
+            </div>
+            <div>
+                <a href="">のぞいてみる</a>
+            </div>
+        </div>
+        <div>
+            <div>
+               <p>2011/11/20 18:00</p>
+               <P>野球を見よう</P>
+               <P>野球を見たい人大歓迎</P>
+               <P>坂本真人</P>
+            </div>
+            <div>
+                <a href="">のぞいてみる</a>
+            </div>
+        </div>
         
         <div>
             <p>
