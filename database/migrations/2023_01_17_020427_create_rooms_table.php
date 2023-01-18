@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('comment', 200);
             $table->string('first_bench_team', 20);
             $table->string('third_bench_team', 20);
-            $table->dateTime('game_date');
             $table->timestamps();
         });
     }

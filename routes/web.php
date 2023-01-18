@@ -27,7 +27,7 @@ Route::get('/dashboard', function () {
 Route::middleware('auth')->group(function () {
     Route::get('/', [RoomController::class, 'front'])->name('front');
     Route::get('posts/create', [RoomController::class, 'create'])->name('create');
-    Route::get('posts/room_info', [RoomController::class, 'room_info']);
+    Route::get('posts/{room}', [RoomController::class, 'room_info']);
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

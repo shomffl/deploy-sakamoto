@@ -19,19 +19,19 @@
             <div>
                 <h1>ルーム情報</h1>
             </div>
-            <div>
-                <div>
-                    <h1>みんなで野球を見よう</h1>
+                <div>    
+                    <div>
+                        <h1 class='title'>{{ $room->title }}</h1>
+                        <p class='name'>{{ $room->id }}</p>
+                        <P class='comment'>{{ $room->comment }}</P>
+                    </div>
                 </div>
                 <div>
-                    <p>投稿者　坂本真人</p>
-                    <P>コメント　阪神ファンや巨人ファンの人募集中</P>
+                    <a href="">ルームに入る</a>
                 </div>
-            </div>
-            <div>
-                <a href="">ルームに入る</a>
-            </div>
-    
+                <div>
+                    <a href="/">戻る</a>
+                </div>
         </body>
     </x-app-layout>
 </html>

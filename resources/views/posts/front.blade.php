@@ -17,38 +17,20 @@
         <body class="antialiased">
 
             <div>
-                <div>
-                   <p>2011/11/20 18:00</p>
-                   <P>野球を見よう</P>
-                   <P>野球を見たい人大歓迎</P>
-                   <P>坂本真人</P>
+                <div class='rooms'>
+                    @foreach($rooms as $room)
+                        <div class='room'>
+                            <p class='created_at'>{{ $room->created_at }}</p>
+                            <P class='title'>{{ $room->title }}</P>
+                            <P class='comment'>{{ $room->comment }}</P>
+                            <P>坂本真人</P>
+                        </div>
+                         <div>
+                            <a href="posts/{{ $room->id }}">のぞいてみる</a>
+                        </div>
+                    @endforeach
                 </div>
-                <div>
-                    <a href="posts/room_info">のぞいてみる</a>
-                </div>
-            </div>
-            <div>
-                <div>
-                   <p>2011/11/20 18:00</p>
-                   <P>野球を見よう</P>
-                   <P>野球を見たい人大歓迎</P>
-                   <P>坂本真人</P>
-                </div>
-                <div>
-                    <a href="">のぞいてみる</a>
-                </div>
-            </div>
-            <div>
-                <div>
-                   <p>2011/11/20 18:00</p>
-                   <P>野球を見よう</P>
-                   <P>野球を見たい人大歓迎</P>
-                   <P>坂本真人</P>
-                </div>
-                <div>
-                    <a href="">のぞいてみる</a>
-                </div>
-            </div>
+               
             
             <div>
                 <p>
