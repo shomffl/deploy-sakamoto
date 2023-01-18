@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ChatController;
+use App\Http\Controllers\RoomController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,8 +15,22 @@ use App\Http\Controllers\ChatController;
 |
 */
 
-Route::get('/', [Chatcontroller::class, 'index']);
+//Route::get('/', function () {
+  //  return view('welcome');
+//});
 
-Route::get('/posts/create', [Chatcontroller::class, 'create']);
 
-Route::get('/posts/room_info', [Chatcontroller::class, 'room_info']);
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/', [RoomController::class, 'front'])->name('front');
+    Route::get('posts/create', [RoomController::class, 'create'])->name('create');
+    Route::get('posts/room_info', [RoomController::class, 'room_info']);
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__.'/auth.php';
