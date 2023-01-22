@@ -9,12 +9,14 @@ class Chat extends Model
 {
     use HasFactory;
     
+    protected $fillable = ['body','user_identifier','user_id','room_id'];
+    
     public function user()
     {
-        return $this->belongTo(User::class);
+        return $this->belongsTo(User::class);
     }
     public function room()
     {
-        return $this->belongTo(Room::class);
+        return $this->belongsTo(Room::class);
     }
 }

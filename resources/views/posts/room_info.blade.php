@@ -27,11 +27,9 @@
                     </div>
                 </div>
                 <div>
-                    <a href="">ルームに入る</a>
+                    <a href="/chat/{{ $room->id }}">ルームに入る</a>
                 </div>
-                <div>
-                    <a href="/">戻る</a>
-                </div>
+                
         </body>
     </x-app-layout>
 </html>
