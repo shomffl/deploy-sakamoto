@@ -14,8 +14,29 @@
             </h2>
         </x-slot>
         <body class="antialiased">
-            <h1>hsajfhkjshnjfans</h1>
-    
+            <form action="/chat" method="POST">
+                @csrf
+                <div class="title">
+                    <h2>タイトル</h2>
+                    <input type="text" name="room[title]" placeholder="タイトルを書いてください">
+                </div>
+                    <div class="comment">
+                       <h2>Comment</h2>
+                       <textarea name="room[comment]" placeholder="コメントを書いてください。"></textarea>
+                </div>
+                <div class="first_bench_team">
+                    <h2>チーム名</h2>
+                       <textarea name="room[first_bench_team]" placeholder="例：巨人"></textarea>
+                </div>
+                <div class="third_bench_team">
+                    <h2>チーム名</h2>
+                       <textarea name="room[third_bench_team]" placeholder="例：阪神"></textarea>
+                </div>
+                <input type="submit" value="ルームを作成"/>
+            </form>
+            <div>
+                <a href="/">戻る</a>
+            </div>
         </body>
     </x-app-layout>
 </html>

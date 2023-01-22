@@ -30,8 +30,9 @@
                         </div>
                     @endforeach
                 </div>
-               
-            
+                <div>
+                    {{ $rooms->links() }}
+                </div>
             <div>
                 <p>
                     <a href="/posts/create">作成</a>
