@@ -9,7 +9,7 @@ class Chat extends Model
 {
     use HasFactory;
     
-    protected $fillable = ['body','user_identifier','user_id','room_id'];
+    protected $fillable = ['user_id','room_id','body'];
     
     public function user()
     {

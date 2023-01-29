@@ -23,13 +23,17 @@
                     <div>
                         <h1 class='title'>{{ $room->title }}</h1>
                         <p class='name'>{{ $room->id }}</p>
+                        <P>{{ $room->first_bench_team }} VS {{ $room->third_bench_team }}</P>
                         <P class='comment'>{{ $room->comment }}</P>
                     </div>
                 </div>
                 <div>
                     <a href="/chat/{{ $room->id }}">ルームに入る</a>
                 </div>
-                
+            <div>
+                <a href="/">戻る</a>
+            </div>   
+               
         </body>
     </x-app-layout>
 </html>

@@ -9,6 +9,11 @@ class Game_predict extends Model
 {
     use HasFactory;
     
+    protected $fillable = [
+        'choice',
+        'user_id',
+        'room_id',
+    ];
     public function user(){
         return $this->belongsTo(User::class);
     }
