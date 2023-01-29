@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Models\Room;
 use App\Models\Chat;
 use Illuminate\Http\Request;
@@ -12,11 +11,19 @@ class RoomController extends Controller
     
     public function front(Room $room)
     {
-        return view('posts/front')->with(['rooms' => $room->getPaginateByLimit()]);
+        return view('rooms/front')->with(['rooms' => $room->getPaginateByLimit()]);
     }
+    //public function search(Request $request)
+    //{
+        //$search_room = '%' . addcslashes($request->search_room, '%_\\') . '%';
+        
+        //$room = Room::where('title', 'LIKE', $search_room)->orderBy('created_at', 'desc')->Paginate(10);
+        
+        //return view('rooms/front')->with(['rooms' => $room]);
+    //}
     public function create(Room $room)
     {
-        return view('posts/create')->with(['room' => $room]);
+        return view('rooms/create')->with(['room' => $room]);
     }
     public function store(Request $request, Room $room)
     {
@@ -26,17 +33,21 @@ class RoomController extends Controller
     }
     public function room_info(Room $room)
     {
-        return view('posts/room_info')->with(['room' => $room]);
+        return view('rooms/room_info')->with(['room' => $room]);
     }
-    public function chat(Room $room, User $user)
+    public function chat(Room $room)
     {
-        $length = Chat::all()->count();
-
-        $display = 15;
-
-        $chats = Chat::offset($length-$display)->limit($display)->get();
+        $id = $room->id;
         
-        return view('posts/chat')->with(['room' => $room,'chats' => $chats, 'user' => $user ]);
+        $length = Chat::where('room_id', $id)->count();
+
+        $display = 8;
+        
+        $chats = Chat::where('room_id', $id)->offset($length-$display)->limit($display)->get();
+        
+        //$room_id = Auth::room();
+        
+        return view('rooms/chat')->with(['room' => $room,'chats' => $chats]);
     }
     //public function exestore(Request $request, Chat $chat)
     //{

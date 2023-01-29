@@ -24,18 +24,20 @@
                 </div>
             </div>
         </div>
+        <div>
+            <a href="/rooms/game_predict/{{ $room->id }}">勝敗予想入力画面へ</a>
+        </div>
         <div class="chats">
             <ul>
                 @foreach ($chats as $chat)
                     <li class="chat">{{ $chat->user->name }}   {{ $chat->body }}</li>
-                    <li class="date">{{ $chat->created_at}}</li>
+                    <li class="date">{{ $chat->created_at }}</li>
                 @endforeach
             </ul>
         </div>
         <form class="chat_input" action="/input" method="POST">
             @csrf
-            <input type="hidden" name="chat[user_id]" value="{{ $chat->user_id}}">
-            <input type="hidden" name="chat[room_id]" value="{{ $chat->room_id}}">
+            <input type="hidden" name="chat[room_id]" value="{{$room->id}}">
             <input class="body" type="text" name="chat[body]">
             <button class="input" type="submit">送信</button>
         </form>

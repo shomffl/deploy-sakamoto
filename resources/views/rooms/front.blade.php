@@ -15,7 +15,15 @@
             </h2>
         </x-slot>
         <body class="antialiased">
-
+            <div class="search">
+                <form action="/room/search" method="post">
+                    @csrf
+                    <div>
+                        <input class="room_search" type="text">
+                        <input class="search_button" type="submit" value="検索">
+                    </div>
+                </form>
+            </div>
             <div>
                 <div class='rooms'>
                     @foreach($rooms as $room)
@@ -26,7 +34,7 @@
                             <P>坂本真人</P>
                         </div>
                          <div>
-                            <a href="posts/{{ $room->id }}">のぞいてみる</a>
+                            <a href="rooms/{{ $room->id }}/preview">のぞいてみる</a>
                         </div>
                     @endforeach
                 </div>
@@ -35,7 +43,7 @@
                 </div>
             <div>
                 <p>
-                    <a href="/posts/create">作成</a>
+                    <a href="/rooms/create">作成</a>
                 </p>
             </div>
         </body>

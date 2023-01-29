@@ -4,7 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\ChatController;
-
+use App\Http\Controllers\Game_predictController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,13 +27,17 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/', [RoomController::class, 'front'])->name('front');
-    Route::get('/posts/create', [RoomController::class, 'create'])->name('create');
-    Route::get('/posts/{room}', [RoomController::class, 'room_info']);
+    Route::post('/room/search', [RoomController::class, 'search']);
+    Route::get('/rooms/create', [RoomController::class, 'create'])->name('create');
+    Route::get('/rooms/{room}/preview', [RoomController::class, 'room_info']);
     Route::get('/chat/{room}', [RoomController::class, 'chat']);
     Route::post('/chat', [RoomController::class, 'store']);
     Route::post('/input', [ChatController::class, 'exeStore']);
-    Route::get('/chat/{room}', [ChatController::class, 'chat']);
+    //Route::get('/chat/{room}/{id}', [ChatController::class, 'chat']);
     Route::get('/chat', [RoomController::class, 'chat']);
+    Route::get('rooms/game_predict/{room}',[Game_predictController::class, 'game_predict']);
+    Route::post('/vote/0', [Game_predictController::class, 'vote0']);
+    Route::post('/vote/1', [Game_predictController::class, 'vote1']);
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
