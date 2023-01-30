@@ -14,10 +14,14 @@ class Game_predictController extends Controller
         $id = $room->id;
         
         $room = Room::find($id);
+        
+        $total0 = Game_predict::where('room_id', $id)->where('choice', 0)->count();
+        
+        $total1 = Game_predict::where('room_id', $id)->where('choice', 1)->count();
       
-        return view('/rooms/game_predict')->with(['room' => $room]);
+        return view('/rooms/game_predict')->with(['room' => $room, 'total0' => $total0, 'total1' => $total1]);
     }
-    public function vote0(Request $request)
+    public function vote0(Request $request, Room $room)
     {
        $gamepredict = new Game_predict;
        
@@ -25,14 +29,29 @@ class Game_predictController extends Controller
        
        $gamepredict->user_id = auth()->id();
        
-       //$gamepredict->room_id = $request['game_predict']['room_id'];
+       $gamepredict->room_id = $request['game_predict']['room_id'];
        
-       dd($gamepredict);
-       return redirect('/');
+       $gamepredict->save();
+       
+       //$total = Game_predict::where('choice', 0)->count();
+       
+       return redirect('/chat/' . $gamepredict->room_id);
+       
     }
-    public function vote1()
+    public function vote1(Request $request, Room $room)
     {
-       dd($gamepredict);
-       return redirect('/');
+       $gamepredict = new Game_predict;
+       
+       $gamepredict->choice = 1;
+       
+       $gamepredict->user_id = auth()->id();
+       
+       $gamepredict->room_id = $request['game_predict']['room_id'];
+       
+       $gamepredict->save();
+       
+       //$total = Game_predict::where('choice', 0)->count();
+       
+       return redirect('/chat/' . $gamepredict->room_id);
     }
 }

@@ -34,7 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/chat', [RoomController::class, 'store']);
     Route::post('/input', [ChatController::class, 'exeStore']);
     //Route::get('/chat/{room}/{id}', [ChatController::class, 'chat']);
-    Route::get('/chat', [RoomController::class, 'chat']);
+    //Route::get('/chat', [RoomController::class, 'chat']);
     Route::get('rooms/game_predict/{room}',[Game_predictController::class, 'game_predict']);
     Route::post('/vote/0', [Game_predictController::class, 'vote0']);
     Route::post('/vote/1', [Game_predictController::class, 'vote1']);

@@ -20,7 +20,7 @@
             　 </div>　
                <div>
                    <div class="first_bench_team">{{ $room->first_bench_team }}が勝利</div>
-                   <div>カウント</div>
+                   <div>{{ $total0 }}</div>
                    <form class="vote" action="/vote/0" method="POST">
                        @csrf
                        <input type="hidden" name="game_predict[room_id]" value="{{$room->id}}">
@@ -29,9 +29,10 @@
                </div>
                <div>
                    <div class="third_bench_team">{{ $room->third_bench_team }}が勝利</div>
-                   <div>カウント</div>
+                   <div>{{ $total1 }}</div>
                    <form class="vote" action="/vote/1" method="POST">
                        @csrf
+                       <input type="hidden" name="game_predict[room_id]" value="{{$room->id}}">
                        <button type="submit">投票する</button>
                    </form>    
                </div>
