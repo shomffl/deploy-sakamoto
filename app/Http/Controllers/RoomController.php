@@ -9,9 +9,24 @@ use Illuminate\Http\Request;
 class RoomController extends Controller
 {
     
-    public function front(Room $room)
+    public function front(Request $request, Room $room)
     {
-        return view('rooms/front')->with(['rooms' => $room->getPaginateByLimit()]);
+        
+        $keyword = $request->input('keyword');
+        
+        $query = Room::query();
+        
+        if(!empty($keyword)){
+            $query->where('title', 'LIKE', "%{$keyword}%")
+                  ->orWhere('first_bench_team', 'LIKE', "%{$keyword}%")
+                  ->orWhere('third_bench_team', 'LIKE', "%{$keyword}%");
+        }
+        
+        $room = $query->get();
+        
+        //$room->getPaginateByLimit(10);
+         
+        return view('rooms/front')->with(['rooms' => $room, 'keyword' => $keyword]);
     }
     //public function search(Request $request)
     //{

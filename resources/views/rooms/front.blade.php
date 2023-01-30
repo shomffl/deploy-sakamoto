@@ -16,10 +16,10 @@
         </x-slot>
         <body class="antialiased">
             <div class="search">
-                <form action="/room/search" method="post">
+                <form action="/" method="get">
                     @csrf
                     <div>
-                        <input class="room_search" type="text">
+                        <input class="room_search" name="keyword" type="text" value="{{ $keyword }}">
                         <input class="search_button" type="submit" value="検索">
                     </div>
                 </form>
@@ -37,9 +37,6 @@
                             <a href="rooms/{{ $room->id }}/preview">のぞいてみる</a>
                         </div>
                     @endforeach
-                </div>
-                <div>
-                    {{ $rooms->links() }}
                 </div>
             <div>
                 <p>
