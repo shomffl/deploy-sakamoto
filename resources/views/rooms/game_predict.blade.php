@@ -21,7 +21,7 @@
                <div>
                    <div class="first_bench_team">{{ $room->first_bench_team }}が勝利</div>
                    <div>{{ $total0 }}</div>
-                   <form class="vote" action="/vote/0" method="POST">
+                   <form class="vote" action="/game_predict/first_bench_team" method="POST">
                        @csrf
                        <input type="hidden" name="game_predict[room_id]" value="{{$room->id}}">
                        <button type="submit">投票する</button>
@@ -30,11 +30,14 @@
                <div>
                    <div class="third_bench_team">{{ $room->third_bench_team }}が勝利</div>
                    <div>{{ $total1 }}</div>
-                   <form class="vote" action="/vote/1" method="POST">
+                   <form class="vote" action="/game_predict/third_bench_team" method="POST">
                        @csrf
                        <input type="hidden" name="game_predict[room_id]" value="{{$room->id}}">
                        <button type="submit">投票する</button>
                    </form>    
+               </div>
+               <div>
+                   <a href="/chat/{{ $room->id }}">チャット画面へ</a>
                </div>
         </body>
     </x-app-layout>

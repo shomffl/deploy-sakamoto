@@ -18,19 +18,23 @@
                 @csrf
                 <div class="title">
                     <h2>タイトル</h2>
-                    <input type="text" name="room[title]" placeholder="タイトルを書いてください">
+                    <input type="text" name="room[title]" placeholder="タイトルを書いてください" value="{{ old('room.title') }}">
+                    <p class="title__error" style="color:red">{{ $errors->first('room.title') }}</p>
                 </div>
-                    <div class="comment">
-                       <h2>Comment</h2>
-                       <textarea name="room[comment]" placeholder="コメントを書いてください。"></textarea>
+                <div class="comment">
+                    <h2>コメント</h2>
+                    <textarea name="room[comment]" placeholder="コメントを書いてください。"> {{ old('room.comment') }}</textarea>
+                    <p class="comment__error" style="color:red">{{ $errors->first('room.comment') }}</p>   
                 </div>
                 <div class="first_bench_team">
-                    <h2>チーム名</h2>
-                       <textarea name="room[first_bench_team]" placeholder="例：巨人"></textarea>
+                    <h2>チーム名1</h2>
+                    <textarea name="room[first_bench_team]" placeholder="例：巨人">{{ old('room.first_bench_team') }}</textarea>
+                    <p class="first_bench_team__error" style="color:red">{{ $errors->first('room.first_bench_team') }}</p>
                 </div>
                 <div class="third_bench_team">
-                    <h2>チーム名</h2>
-                       <textarea name="room[third_bench_team]" placeholder="例：阪神"></textarea>
+                    <h2>チーム名2</h2>
+                    <textarea name="room[third_bench_team]" placeholder="例：阪神">{{ old('room.third_bench_team') }}</textarea>
+                    <p class="third_bench_team__error" style="color:red">{{ $errors->first('room.third_bench_team') }}</p>
                 </div>
                 <input type="submit" value="ルームを作成"/>
             </form>

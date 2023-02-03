@@ -25,10 +25,10 @@ class Room extends Model
     }
     public function game_predicts()
     {
-        return $this->hasmany(Game_predict::class);
+        return $this->hasmany(GamePredict::class);
     }
     public function users()
     {
-        return $this->belongToMany(User::class);
+        return $this->belongsToMany(User::class);
     }
 }

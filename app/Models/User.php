@@ -48,10 +48,10 @@ class User extends Authenticatable
     }
     public function game_predicts()
     {
-        return $this->hasmany(Game_predict::class);
+        return $this->hasmany(GamePredict::class);
     }
     public function rooms()
     {
-        return $this->belongToMany(Room::class);
+        return $this->belongsToMany(Room::class);
     }
 }
