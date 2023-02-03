@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Room;
 use App\Models\Chat;
+use App\Models\Game_predict;
 use Illuminate\Http\Request;
+use App\Http\Requests\RoomRequest; 
+use Illuminate\Support\Facades\Auth;
 
 class RoomController extends Controller
 {
@@ -40,7 +44,7 @@ class RoomController extends Controller
     {
         return view('rooms/create')->with(['room' => $room]);
     }
-    public function store(Request $request, Room $room)
+    public function store(RoomRequest $request, Room $room)
     {
         $input = $request['room'];
         $room->fill($input)->save();
@@ -56,14 +60,48 @@ class RoomController extends Controller
         
         $length = Chat::where('room_id', $id)->count();
 
-        $display = 8;
+        $display = 6;
         
         $chats = Chat::where('room_id', $id)->offset($length-$display)->limit($display)->get();
         
-        //$room_id = Auth::room();
+        $user_id = auth()->id();
         
-        return view('rooms/chat')->with(['room' => $room,'chats' => $chats]);
+        //$user_id = $user->id
+        
+        //$game_prediction = Game_predict::where('room_id', $id)->where('user_id', $user_id)->get();
+        
+        //$game_prediction = new Game_predict;
+        
+        //$game_prediction->user_id = auth()->id();
+        
+        //$game_prediction->room_id = $id;
+        
+        
+        //$game_prediction->choice = 1;
+        //dd($game_prediction);
+        //$user_id = new Room_User;
+         
+        //$number = Room::find($room->id)->users()->count();
+        //dd($number);
+        
+        return view('rooms/chat')->with(['room' => $room,'chats' => $chats,'game_predicts' => $room->game_predicts]);
     }
+    public function edit(Room $room)
+    {
+        return view('rooms/edit')->with(['room' => $room]);
+    }
+    public function update(RoomRequest $request, Room $room)
+    {
+        $input_room = $request['room'];
+        $room->fill($input_room)->save();
+        
+        return redirect('/chat/'.$room->id);
+    }
+    //public function delete(Room $room)
+    //{
+      //  $room->delete();
+      //    return redirect('/');
+    //}
     //public function exestore(Request $request, Chat $chat)
     //{
         //$chats = $request[chat];

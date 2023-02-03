@@ -22,9 +22,10 @@
                 <div>    
                     <div>
                         <h1 class='title'>{{ $room->title }}</h1>
-                        <p class='name'>{{ $room->id }}</p>
-                        <P>{{ $room->first_bench_team }} VS {{ $room->third_bench_team }}</P>
                         <P class='comment'>{{ $room->comment }}</P>
+                        <p class='name'>{{ $room->user }}</p>
+                        <P>{{ $room->first_bench_team }} VS {{ $room->third_bench_team }}</P>
+                        
                     </div>
                 </div>
                 <div>

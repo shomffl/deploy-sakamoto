@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Chat;
 use App\Models\Room;
 use App\Models\User;
+use App\Http\Requests\ChatRequest;
 
 class ChatController extends Controller
 {
@@ -36,10 +37,12 @@ class ChatController extends Controller
 
         $chats = Chat::offset($length-$display)->limit($display)->get();
         
+        
+        
         return view('rooms/chat')->with(['room' => $room,'chats' => $chats, 'user' => $user]);
     }
     
-    public function exeStore(Request $request, Chat $chat, Room $room)
+    public function exeStore(ChatRequest $request, Chat $chat, Room $room)
     {
         //$input = Chat::where('user_id', \Auth::user()->id)->get();
         //$input = $request['chat'];

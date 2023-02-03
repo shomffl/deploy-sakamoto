@@ -19,7 +19,7 @@
                 <form action="/" method="get">
                     @csrf
                     <div>
-                        <input class="room_search" name="keyword" type="text" value="{{ $keyword }}">
+                        <input class="room_search" name="keyword" type="text" placeholder="タイトルやチーム名で探す" value="{{ $keyword }}">
                         <input class="search_button" type="submit" value="検索">
                     </div>
                 </form>
