@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\GamePredictController;
+use App\Http\Controllers\MypageController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -32,9 +33,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/rooms/{room}/preview', [RoomController::class, 'room_info']);
     Route::get('/chat/{room}', [RoomController::class, 'chat']);
     Route::get('/rooms/{room}/edit', [RoomController::class, 'edit']);
+    Route::delete('/rooms/{room}',[RoomController::class, 'delete']);
     Route::put('/rooms/{room}', [RoomController::class, 'update']);
     Route::post('/chat', [RoomController::class, 'store']);
-    Route::post('/input', [ChatController::class, 'exeStore']);
+    Route::post('/input', [ChatController::class, 'sendMessage']);
+    Route::get('/rooms/mypage', [MypageController::class, 'mypage'])->name('mypage');
     //Route::get('/chat/{room}/{id}', [ChatController::class, 'chat']);
     //Route::get('/chat', [RoomController::class, 'chat']);
     Route::get('/game_predict/{room}',[GamePredictController::class, 'game_predict']);

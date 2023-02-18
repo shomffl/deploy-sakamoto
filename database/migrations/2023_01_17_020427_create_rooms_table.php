@@ -16,6 +16,8 @@ return new class extends Migration
         Schema::create('rooms', function (Blueprint $table) {
             $table->id();
             $table->string('title', 40);
+            $table->string('room_creator_name', 40);
+            $table->string('category',20);
             $table->string('comment', 200);
             $table->string('first_bench_team', 20);
             $table->string('third_bench_team', 20);

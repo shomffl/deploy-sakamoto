@@ -8,6 +8,8 @@ use App\Models\Chat;
 use App\Models\Room;
 use App\Models\User;
 use App\Http\Requests\ChatRequest;
+use App\Events\MessageSent;
+
 
 class ChatController extends Controller
 {
@@ -42,38 +44,58 @@ class ChatController extends Controller
         return view('rooms/chat')->with(['room' => $room,'chats' => $chats, 'user' => $user]);
     }
     
-    public function exeStore(ChatRequest $request, Chat $chat, Room $room)
+    public function sendMessage(Request $request, Chat $chat )
     {
-        //$input = Chat::where('user_id', \Auth::user()->id)->get();
-        //$input = $request['chat'];
-        //$chat->fill($input)->save();
+        
+        //チャット同期処理
+        
+        //$chat = new Chat;
+        
+        //$chat->user_id = auth()->id();
+        
+        //$chat->room_id = $request['chat']['room_id'];
+        
+        //$chat->body = $request['chat']['body'];
+        
+        //$chat->save();
+        
         //return back();
-     
-        //return redirect('/chat/' . $chat->room->id);
-     
-        
-        //$input = $request['chat'];
-        
-        //$input += ["user_id" => Auth::id()];
-        
-        //$chat->fill($input)->save();
+    
+        //チャット非同期処理
         
         $chat = new Chat;
         
         $chat->user_id = auth()->id();
         
-        $chat->room_id = $request['chat']['room_id'];
+        $chat->room_id = $request[ 'room_id' ];
         
-        $chat->body = $request['chat']['body'];
-        
-        //$chat = Chat::where('room_id', '2')->get();
-        
-        //dd($chat);
+        $chat->body = $request[ 'message' ];
         
         $chat->save();
         
-        return back();
-    
+        MessageSent::dispatch($chat);
         
+        
+        
+        return back();
+        
+        
+        //失敗
+        
+        //$user = auth()->user();
+        
+        //$strUsername = $user->name;
+        
+        //$strmessage = $request->input('message');
+        
+        //$message = new Message;
+        
+        //$message->username = $strUsername;
+        
+        //$message->body = $strMessage;
+        
+        //MessageSent::dispatch($message);
+        
+        //return $request;
     }
 }

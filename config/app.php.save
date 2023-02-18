@@ -1,3 +1,9 @@
+:wq
+
+
+
+
+
 <?php
 
 use Illuminate\Support\Facades\Facade;
@@ -15,7 +21,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'スポーツ実況.com'),
+    'name' => env('APP_NAME', 'Laravel'),
 
     /*
     |--------------------------------------------------------------------------
@@ -191,7 +197,7 @@ return [
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
-        App\Providers\BroadcastServiceProvider::class,
+        // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
