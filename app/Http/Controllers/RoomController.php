@@ -9,28 +9,33 @@ use App\Models\Game_predict;
 use Illuminate\Http\Request;
 use App\Http\Requests\RoomRequest; 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class RoomController extends Controller
 {
+    use SoftDeletes;
     
     public function front(Request $request, Room $room)
     {
         
         $keyword = $request->input('keyword');
         
-        $query = Room::query();
+        //$query = Room::query();
+    
         
         if(!empty($keyword)){
-            $query->where('title', 'LIKE', "%{$keyword}%")
-                  ->orWhere('first_bench_team', 'LIKE', "%{$keyword}%")
-                  ->orWhere('third_bench_team', 'LIKE', "%{$keyword}%");
-        }
+            $result = $room->getPaginateByResult($keyword, 10);
+        }else{ 
+            $result = $room->getPaginateByLimit(10);
+            
+        }        
         
-        $room = $query->get();
+        //$room = $query->getPaginateByLimit(10);
         
         //$room->getPaginateByLimit(10);
          
-        return view('rooms/front')->with(['rooms' => $room, 'keyword' => $keyword]);
+        return view('rooms/front')->with(['rooms' => $result , 'keyword' => $keyword]);
     }
     //public function search(Request $request)
     //{
@@ -46,8 +51,27 @@ class RoomController extends Controller
     }
     public function store(RoomRequest $request, Room $room)
     {
-        $input = $request['room'];
-        $room->fill($input)->save();
+        //$input = $request['room'];
+        //$room->fill($input)->save();
+        
+        $input = new Room;
+        
+        $input->title = $request['room']['title'];
+        
+        $input->comment = $request['room']['comment'];
+        
+        $input->room_creator_name = auth()->user()->name;
+        
+        $input->category = $request['room']['category'];
+        
+        $input->first_bench_team = $request['room']['first_bench_team'];
+        
+        $input->third_bench_team = $request['room']['third_bench_team'];
+        
+        $input->save();
+        
+        dd($input);
+        
         return redirect('/chat/' . $room->id);
     }
     public function room_info(Room $room)
@@ -56,15 +80,21 @@ class RoomController extends Controller
     }
     public function chat(Room $room)
     {
+        //チャット表示件数制限処理
         $id = $room->id;
         
-        $length = Chat::where('room_id', $id)->count();
+        //$length = Chat::where('room_id', $id)->count();
 
-        $display = 6;
+        //$display = 8;
         
-        $chats = Chat::where('room_id', $id)->offset($length-$display)->limit($display)->get();
+        $chats = Chat::where('room_id', $id)->get();
         
-        $user_id = auth()->id();
+        //$user_id = auth()->id();
+        
+        
+        
+        
+        
         
         //$user_id = $user->id
         
@@ -89,6 +119,11 @@ class RoomController extends Controller
     public function edit(Room $room)
     {
         return view('rooms/edit')->with(['room' => $room]);
+    }
+    public function delete(Room $room)
+    {
+        $room->delete();
+        return redirect('/');
     }
     public function update(RoomRequest $request, Room $room)
     {

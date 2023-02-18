@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('game_predicts', function (Blueprint $table) {
             $table->id();
             $table->string('choice');
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('room_id')->constrained();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('room_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

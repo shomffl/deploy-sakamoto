@@ -10,7 +10,7 @@ class ChatRequest extends FormRequest
     public function rules()
     {
         return [
-            'chat.body' => 'required|string|max:40',
+            'message' => 'required|string|max:40',
         ];
     }
 }

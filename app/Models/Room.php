@@ -17,7 +17,16 @@ class Room extends Model
     ];
     public function getPaginateByLimit(int $limit_count = 10)
     {
-    return $this->orderBy('updated_at', 'DESC')->paginate($limit_count);
+        return $this->orderBy('created_at', 'DESC')->paginate($limit_count);
+    }
+    public function getPaginateByResult($search, int $limit_count = 10)
+    {
+        return $this->where('title', 'LIKE', "%{$search}%")
+                  ->orWhere('first_bench_team', 'LIKE', "%{$search}%")
+                  ->orWhere('third_bench_team', 'LIKE', "%{$search}%")
+                  ->orWhere('category', 'LIKE', "%{$search}%")
+                  ->orderBy('created_at', 'DESC')
+                  ->paginate($limit_count);
     }
     public function chats()
     {
