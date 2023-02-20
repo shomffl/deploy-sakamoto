@@ -18,12 +18,12 @@
                 </div>
             </div>
         </div>
-        <div>
+        <div class="fixed">
             <a href="/game_predict/{{ $room->id }}">勝敗予想入力画面へ</a>
             
         </div>
         
-        <ul class="list-disc" id="list_message">
+        <ul class="list-disc" id="list_message" style="color:purple">
             @foreach( $chats as $chat)
                <li>{{ $chat->user->name }}</li> 
                <li>{{ $chat->body }}</li>
@@ -84,9 +84,9 @@
                     return;
                 }
     
-                params = { 'message': strMessage ,'name': name , 'room_id':  room_id };
+                params = { 'message': strMessage , 'room_id':  room_id　};
                 
-                console.log(strMessage , );
+                console.log(strMessage ,);
                 {{-- POSTリクエスト送信処理とレスポンス取得処理 --}}
                 axios
                     .post( '/input', params )
@@ -110,9 +110,9 @@
                 {{-- Listen開始と、イベント発生時の処理の定義 --}}
                 window.Echo.private('chat').listen( 'MessageSent', (e) =>
                 {
-                             
-                   
-                    
+            
+　               
+　                            
                     console.log(e);
                     {{-- メッセージの整形 --}}
                     
@@ -120,28 +120,33 @@
                     
                     let strMessage = e.chat.body;
                     
+                
+                    let gamePredict = e.choice;
                     //勝敗予想の処理
                     //let gamePredict = e.gamePredict.choice;
                     
+                    //console.log(gamePredict);
                     
-                
     
                     {{-- 拡散されたメッセージをメッセージリストに追加 --}}
                     let elementLi = document.createElement( "li" );
                     let elementName = document.createElement( "li" );
+                    
                     //勝敗予想の処理
-                    //let elementGamePredict = document.createElement( "li" );
+                    let elementGamePredict = document.createElement( "li" );
+                    
                     let elementMessage = document.createElement( "div" );
                     
                     elementName.textContent = name;
                     elementMessage.textContent = strMessage;
+                    
                     //勝敗予想の処理
-                    //elementGamePredict.textContent = gamePredict;
+                    elementGamePredict.textContent = "勝敗予想："+ gamePredict +"勝利";
                     
                     elementLi.append( elementName );
                     elementLi.append( elementMessage );
                     //勝敗予想の処理
-                    //elementLi.append( elementGamePredict );
+                    elementLi.append( elementGamePredict );
                     //elementListMessage.prepend( elementLi );  // リストの一番上に追加
                     elementListMessage.append( elementLi ); // リストの一番下に追加
                 });
