@@ -12,13 +12,15 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
 use App\Models\Chat;
-use App\Models\GamePredict;
+//use App\Models\GamePredict;
 
 class MessageSent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $chat;
+    
+    public $choice;
     //public $gamePredict;
     
     /**
@@ -26,11 +28,13 @@ class MessageSent implements ShouldBroadcast
      *
      * @return void
      */
-    public function __construct( Chat $chat )
+    public function __construct( Chat $chat , $choice)
     {
         $this->chat = $chat;
         
         $this->chat->user = $chat->user;
+        
+        $this->choice = $choice;
         
         //$this->gamePredict = $gamePredict;
     }

@@ -91,11 +91,6 @@ class RoomController extends Controller
         
         //$user_id = auth()->id();
         
-        
-        
-        
-        
-        
         //$user_id = $user->id
         
         //$game_prediction = Game_predict::where('room_id', $id)->where('user_id', $user_id)->get();

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Chat;
 use App\Models\Room;
 use App\Models\User;
+use App\Models\GamePredict;
 use App\Http\Requests\ChatRequest;
 use App\Events\MessageSent;
 
@@ -39,12 +40,10 @@ class ChatController extends Controller
 
         $chats = Chat::offset($length-$display)->limit($display)->get();
         
-        
-        
         return view('rooms/chat')->with(['room' => $room,'chats' => $chats, 'user' => $user]);
     }
     
-    public function sendMessage(Request $request, Chat $chat )
+    public function sendMessage(Request $request, Chat $chat, Room $room, GamePredict $gamePredict)
     {
         
         //チャット同期処理
@@ -63,6 +62,8 @@ class ChatController extends Controller
     
         //チャット非同期処理
         
+        //
+        
         $chat = new Chat;
         
         $chat->user_id = auth()->id();
@@ -72,10 +73,30 @@ class ChatController extends Controller
         $chat->body = $request[ 'message' ];
         
         $chat->save();
+      
         
-        MessageSent::dispatch($chat);
+        $gamePredict = GamePredict::all();
+
         
+        //if(isset($room->game_predicts->where('room_id',$room->id)->where('user_id',$chat->user_id)->first()->choice)){
+          //  $choice = $room->game_predicts->where('room_id',$room->id)->where('user_id',$chat->user_id)->first()->choice;
+        //}else{
+          //  $choice = null;
+        //}
         
+        if(isset($gamePredict->where('room_id',$chat->room_id)->where('user_id',$chat->user_id)->first()->choice)){
+            if($gamePredict->where('room_id',$chat->room_id)->where('user_id',$chat->user_id)->first()->choice === 0){
+                $choice = Room::where('id',$chat->room_id)->first()->first_bench_team;
+            }else{
+                $choice = Room::where('id',$chat->room_id)->first()->third_bench_team;
+            }
+        }else{
+            $choice = "予想はまだありません";
+        }
+            
+        
+        MessageSent::dispatch($chat,$choice);
+    
         
         return back();
         
