@@ -8,8 +8,8 @@
         
     </head>
     <x-app-layout>
-        <x-slot name="header">
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+        <x-slot dname="hedader">
+            <h2 class="pt-16 font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 {{ __('ルーム詳細情報') }}
             </h2>
         </x-slot>
@@ -17,8 +17,8 @@
         <div class="py-12">
         <body class="antialiased">
             <div class="" >
-                    <div class="pt-1 pl-20 pb-1 pr-20">    
-                        <div class=' border-solid  bg-white  rounded-lg'>
+                    <div class="pt-16 pl-20 pb-1 pr-20">    
+                        <div class=' border-solid  bg-white  rounded-lg bg-violet-50'>
                             <p class='px-2 py-1 ml-2 mb-2 text-xs font-bold'>{{ $room->created_at }}</p>
                             <h1 class='px-2 py-1 ml-2 mb-2 text-xl font-bold'>タイトル：{{ $room->title }}</h1>
                             <p class='px-2 py-1 ml-2 mb-2 text-xl font-bold'>カテゴリ：{{ $room->category }}</p>

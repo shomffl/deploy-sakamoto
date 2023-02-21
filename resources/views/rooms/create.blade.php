@@ -8,13 +8,13 @@
         
     </head>
     <x-app-layout>
-        <x-slot name="header">
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+        <x-slot name="headers">
+            <h2 class="pt-16 font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 {{ __('ルーム新規作成') }}
             </h2>
         </x-slot>
         <body>
-            <div class="pt-6 pl-20 pb-4 pr-20">
+            <div class="pt-32 pl-20 pb-4 pr-20">
                 <form action="/chat" method="POST">
                     @csrf
                     <div class="title">
