@@ -71,7 +71,7 @@ class ChatController extends Controller
                       $choice = Room::where('id',$chat->room_id)->first()->first_bench_team;
                   }
               }else{
-                  $choice = "予想はまだありません";
+                  $choice = null;
               }
         
         //MessageSent.phpに$chatと$choiceを渡す

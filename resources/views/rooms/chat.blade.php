@@ -142,10 +142,17 @@
                     let elementMessage = document.createElement( "div" );
                     
                     elementName.textContent = name;
+                    elementName.style.cssText = "padding: 11px 20px 0px 12px; font-size: small;";
                     elementMessage.textContent = strMessage;
+                    elementMessage.style.cssText = "padding: 0em 10px 0px 10px; font-weight: 600;background-color: white;display: inline; margin: 0em 10px 0px 10px; border-radius: 3px;";
                     
                     //勝敗予想の処理
-                    elementGamePredict.textContent = "勝敗予想："+ gamePredict +"勝利";
+                    if( gamePredict == null){
+                       elementGamePredict.textContent = "勝敗予想をしよう"
+                    }else{
+                       elementGamePredict.textContent = "勝敗予想："+ gamePredict +"勝利";
+                    }   
+                    elementGamePredict.style.cssText = "font-size: 12px; background-color: #9933FF; border-radius: 10px; color: white; padding: 0em 10px 0px 9px; display: inline;";
                     
                     elementLi.append( elementName );
                     elementLi.append( elementMessage );
