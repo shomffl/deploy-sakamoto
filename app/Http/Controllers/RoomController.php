@@ -41,7 +41,7 @@ class RoomController extends Controller
         return view('rooms/create')->with(['room' => $room]);
     }
     //ルーム新規作成
-    public function store(RoomRequest $request, Room $room)
+    public function store(RoomRequest $request)
     {
         //インスタンス化
         $input = new Room;
@@ -60,7 +60,8 @@ class RoomController extends Controller
         
         $input->save();
         
-        return redirect('/chat/' . $room->id);
+        
+        return redirect('/chat/' . $input->id);
     
     }
     //ルーム詳細画面の表示
