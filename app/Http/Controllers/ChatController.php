@@ -14,24 +14,7 @@ use App\Events\MessageSent;
 
 class ChatController extends Controller
 {
-    
-    //public function exestore(Request $request, Room $room)
-    //{
-        //$chats = new Chat;
-        //$form = $request->all();
-        //$chats->fill($form)->save();
-        //$chat->fill([$chat->body => $request->body,
-          //           $chat->user_identifier => $request->user_identifier,                  
-            //         $chat->user_id => $request->user_id])->save();
-        //$chat = Chat::all();
-        //$chat->body = $request->body;
-        //$chat->user_identifier = $request->user_identifier;
-        //$chat->user_id = $request->user_id;
-        //$chat->save();
-        
-        //return redirect('/chat/' . $room->id );
-    //
-    //}
+    //チャット画面表示の処理
     public function chat(Room $room, User $user)
     {
         $length = Chat::all()->count();
@@ -43,6 +26,7 @@ class ChatController extends Controller
         return view('rooms/chat')->with(['room' => $room,'chats' => $chats, 'user' => $user]);
     }
     
+    //チャット入力の処理
     public function sendMessage(Request $request, Chat $chat, Room $room, GamePredict $gamePredict)
     {
         
@@ -60,63 +44,42 @@ class ChatController extends Controller
         
         //return back();
     
+    
+    
         //チャット非同期処理
         
-        //
-        
+        //インスタンス化
         $chat = new Chat;
         
         $chat->user_id = auth()->id();
-        
+
         $chat->room_id = $request[ 'room_id' ];
         
         $chat->body = $request[ 'message' ];
         
         $chat->save();
       
-        
+      
+      
+        //試合結果予想情報の取得
         $gamePredict = GamePredict::all();
-
         
-        //if(isset($room->game_predicts->where('room_id',$room->id)->where('user_id',$chat->user_id)->first()->choice)){
-          //  $choice = $room->game_predicts->where('room_id',$room->id)->where('user_id',$chat->user_id)->first()->choice;
-        //}else{
-          //  $choice = null;
-        //}
+              if(isset($gamePredict->where('room_id',$chat->room_id)->where('user_id',$chat->user_id)->first()->choice)){
+                  if($gamePredict->where('room_id',$chat->room_id)->where('user_id',$chat->user_id)->first()->choice == 1){
+                      $choice = Room::where('id',$chat->room_id)->first()->third_bench_team;
+                  }else{
+                      $choice = Room::where('id',$chat->room_id)->first()->first_bench_team;
+                  }
+              }else{
+                  $choice = "予想はまだありません";
+              }
         
-        if(isset($gamePredict->where('room_id',$chat->room_id)->where('user_id',$chat->user_id)->first()->choice)){
-            if($gamePredict->where('room_id',$chat->room_id)->where('user_id',$chat->user_id)->first()->choice === 0){
-                $choice = Room::where('id',$chat->room_id)->first()->first_bench_team;
-            }else{
-                $choice = Room::where('id',$chat->room_id)->first()->third_bench_team;
-            }
-        }else{
-            $choice = "予想はまだありません";
-        }
-            
-        
+        //MessageSent.phpに$chatと$choiceを渡す
         MessageSent::dispatch($chat,$choice);
     
         
         return back();
         
-        
-        //失敗
-        
-        //$user = auth()->user();
-        
-        //$strUsername = $user->name;
-        
-        //$strmessage = $request->input('message');
-        
-        //$message = new Message;
-        
-        //$message->username = $strUsername;
-        
-        //$message->body = $strMessage;
-        
-        //MessageSent::dispatch($message);
-        
-        //return $request;
+
     }
 }

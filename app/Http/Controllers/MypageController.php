@@ -10,6 +10,7 @@ use App\Models\Mypage;
 
 class MypageController extends Controller
 {
+    //マイページを表示するための処理
     public function mypage(Chat $chat)
     {
         //ユーザーのIDを取得
@@ -23,21 +24,12 @@ class MypageController extends Controller
         foreach ($mychats as $mychat){
            array_push($room_id, $mychat->room_id);
         }
-        //dump($room_id);
-        //取得したチャットIDのチャット情報をすべて取得（これができない）
-        
-        //dd($room->first()->chats->where('user_id', $user_id)->all());
-        //dd($room->chat->where('user_id', auth()->id()));
-       // if(isset($room->chat->where('user_id', auth()->id())->all()))
-     //  {
-     //       $myrooms = $room->chat->where('user_id', auth()->id());
-      //  }else{
-          //  $myrooms = null;
-        //}
-     
+        //ペジネーション 
         $myrooms = Room::whereIn('id',$room_id)->orderBy('created_at', 'DESC')->paginate(5);
-       
         
-        return view('rooms/mypage')->with(['myrooms' => $myrooms]);
+        //ルームの数を取得
+        $roomsCount = $mychats->count();
+        
+        return view('rooms/mypage')->with(['myrooms' => $myrooms, 'roomsCount' => $roomsCount]);
     }
 }
