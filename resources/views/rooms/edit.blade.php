@@ -8,13 +8,8 @@
         
     </head>
     <x-app-layout>
-        <x-slot name="header">
-            <h2 class="pt-16 font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                {{ __('ルーム編集画面') }}
-            </h2>
-        </x-slot>
         <body>
-        　　<div class="pt-6 pl-20 pb-4 pr-20">
+        　　<div class="pt-32 pl-20 pb-4 pr-20 bg-violet-50 h-full">
             　　<form action="/rooms/{{ $room->id }}" method="POST">
                     @csrf
                     @method('PUT')
@@ -24,7 +19,7 @@
                             <p class="title__error" style="color:red">{{ $errors->first('room.title') }}</p>
                         </div>
                         <div class="category">
-                        <h2 class="< text-xl font-bold">カテゴリ</h2>
+                        <h2 class="< text-xl font-bold pt-4">カテゴリ</h2>
                             <select class="pt-3 t-1 block rounded-md border-purple-500 shadow-sm focus:border-purple-500 focus:ring focus:ring-purple-500 focus:ring-opacity-100" name="room[category]">
                                 <option value="選択されていません">選択してください</option>
                                 <option value="プロ野球">プロ野球</option>
