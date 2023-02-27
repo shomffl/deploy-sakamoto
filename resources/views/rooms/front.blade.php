@@ -27,26 +27,31 @@
                             @else
                                 @foreach($rooms as $room)
                                     <div class='bg-violet-50 dark:bg-gray-100 overflow-hidden shadow-sm sm:rounded-lg'>
-                                            <p class='px-2 py-1 ml-2 mb-2 text-xs'>{{ $room->created_at }}</p>
+                                            <p class='pt-2 px-2 py-1 ml-2 mb-2 text-xs font-semibold text-purple-500'>{{ $room->created_at }}</p>
                                             <P class='px-2 py-1 ml-2 mb-2 text-2xl font-bold'>{{ $room->title }}</P>
                                             <P class='px-2 py-1 ml-2 mb-2 text-lg font-bold'>{{ $room->comment }}</P>
                                             <P class='px-2 py-1 ml-2 mb-2 text-xl font-bold'>{{ $room->first_bench_team }} VS {{ $room->third_bench_team }}</P>
-                                            <div class='px-2 py-1 ml-2 mb-2 inline-flex justify-center items-center gap-2 rounded-md border-2 border-purple-200 font-semibold text-purple-500 hover:text-white hover:bg-purple-500 hover:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-200 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800'><a href="rooms/{{ $room->id }}/preview">のぞいてみる</a></div>
+                                            <div class='ml-4 px-2 py-1 ml-2 mb-2 inline-flex justify-center items-center gap-2 rounded-md border-2 border-purple-500 font-semibold text-purple-500 hover:text-white hover:bg-purple-500 hover:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-200 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800'><a href="rooms/{{ $room->id }}/preview">のぞいてみる</a></div>
                                     <div/>
+                                    <div style='border-bottom: 1px solid violet'>
+                                        
+                                    </div>
                                 @endforeach
                             @endif   
                     </div>
                 </div>
             <div>
-            <div>
-                <div  class="btn-group">
-                    {{ $rooms->links() }}
-                </div>  
-            </div>
-            <div> 
-                <p class="rounded-full py-3 px-6 px-2 py-2 ml-2 mb-2 inline-flex justify-center items-center gap-2 rounded-md border-2 border-purple-200 font-semibold text-purple-500 hover:text-white hover:bg-purple-500 hover:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-200 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800">
-                    <a href="/rooms/create">作成</a>
-                </p>
+                <div>
+                    <div class="pt-4">
+                        <div  class="btn-group">
+                            {{ $rooms->links() }}
+                        </div>  
+                    </div>
+                <div class="pt-4 pb-8 pl-44"> 
+                    <p class="rounded-full py-3 px-6 py-2 ml-2 mb-2 inline-flex justify-center items-center gap-2 rounded-md border-2 border-purple-200 font-semibold text-purple-500 hover:text-white hover:bg-purple-500 hover:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-200 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800">
+                            <a href="/rooms/create">作成</a>
+                    </p>
+                </div>
             </div>
         </body>
     </x-app-layout>

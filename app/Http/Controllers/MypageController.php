@@ -20,10 +20,13 @@ class MypageController extends Controller
         $mychats = $chat->where('user_id', $user_id)->get();
         
         $room_id = array();
+        
         //チャット情報のidをそれぞれ取得
         foreach ($mychats as $mychat){
+        
            array_push($room_id, $mychat->room_id);
         }
+        
         //ペジネーション 
         $myrooms = Room::whereIn('id',$room_id)->orderBy('created_at', 'DESC')->paginate(5);
         

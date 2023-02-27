@@ -13,8 +13,8 @@
                 {{ __('ルーム新規作成') }}
             </h2>
         </x-slot>
-        <body>
-            <div class="pt-32 pl-20 pb-4 pr-20">
+        <body class="bg-violet-50">
+            <div class="pt-32 pl-20 pb-4 pr-20 bg-violet-50">
                 <form action="/chat" method="POST">
                     @csrf
                     <div class="title">

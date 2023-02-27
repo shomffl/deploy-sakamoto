@@ -24,8 +24,11 @@ class RoomController extends Controller
         
         //ペジネーション
         if(!empty($keyword)){
+            
             $rooms = $room->getPaginateByResult($keyword, 10);
+        
         }else{ 
+            
             $rooms = $room->getPaginateByLimit(10);
             
         }        
@@ -84,7 +87,7 @@ class RoomController extends Controller
     {
         return view('rooms/edit')->with(['room' => $room]);
     }
-    //ルーム
+    //ルーム編集実行
     public function update(RoomRequest $request, Room $room)
     {
         //

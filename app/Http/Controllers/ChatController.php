@@ -52,7 +52,7 @@ class ChatController extends Controller
         $chat = new Chat;
         
         $chat->user_id = auth()->id();
-
+        
         $chat->room_id = $request[ 'room_id' ];
         
         $chat->body = $request[ 'message' ];
@@ -65,21 +65,24 @@ class ChatController extends Controller
         $gamePredict = GamePredict::all();
         
               if(isset($gamePredict->where('room_id',$chat->room_id)->where('user_id',$chat->user_id)->first()->choice)){
+                  
                   if($gamePredict->where('room_id',$chat->room_id)->where('user_id',$chat->user_id)->first()->choice == 1){
+                      
                       $choice = Room::where('id',$chat->room_id)->first()->third_bench_team;
+                      
                   }else{
+                      
                       $choice = Room::where('id',$chat->room_id)->first()->first_bench_team;
                   }
               }else{
+                  
                   $choice = null;
               }
         
         //MessageSent.phpに$chatと$choiceを渡す
         MessageSent::dispatch($chat,$choice);
     
-        
         return back();
-        
-
+    
     }
 }

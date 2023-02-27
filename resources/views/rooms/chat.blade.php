@@ -8,52 +8,54 @@
     </head>
 
     <x-app-layout>
-        <body class="antialiased">
-            <div class="pt-14">
+        <body class="bg-violet-50">
+            <div class="bg-violet-50 h-full">
+            <div class="pt-14 bg-violet-50 h-full">
                 <div class="fixed w-full pt-2 pl-60 pr-60">    
                     <div class='border-solid  bg-violet-50  rounded-lg'>
-                        <h1 class='pl-2 pt-2 font-bold text-2xl'>{{ $room->title }}</h1>
-                        <P class='pl-2 font-bold text-lg'>{{ $room->comment }}</P>
-                        <P class="pl-2 font-bold text-lg">{{ $room->first_bench_team}}vs{{ $room->third_bench_team}}</P>
-                        <a class='px-2 py-1 ml-2 mb-2 inline-flex justify-center items-center gap-2 rounded-md border-2 border-purple-200 font-semibold text-purple-500 hover:text-white hover:bg-purple-500 hover:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-200 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800' href="/game_predict/{{ $room->id }}">勝敗予想入力画面へ</a>
-                    　　<a class='px-2 py-1 ml-2 mb-2 inline-flex justify-center items-center gap-2 rounded-md border-2 border-purple-200 font-semibold text-purple-500 hover:text-white hover:bg-purple-500 hover:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-200 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800' href="/">戻る</a>
+                        <a class='mt-2 ml-2 px-2 py-1 ml-2 mb-2 inline-flex justify-center items-center gap-2 rounded-md border-2 border-purple-500 font-semibold text-purple-500 hover:text-white hover:bg-purple-500 hover:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-200 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800' href="/">戻る</a>
+                        <h1 class='pl-2 font-bold text-2xl'>{{ $room->title }}</h1>
+                        <P class='pl-2 pt-1 font-bold text-sm'>{{ $room->comment }}</P>
+                        <P class="pl-2 pt-1 font-bold text-lg">{{ $room->first_bench_team}}vs{{ $room->third_bench_team}}</P>
+                        <a class='px-2 py-1 ml-2 mb-2 inline-flex justify-center items-center gap-2 rounded-md border-2 border-purple-500 font-semibold text-purple-500 hover:text-white hover:bg-purple-500 hover:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-200 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800' href="/game_predict/{{ $room->id }}">勝敗予想をする</a>
+                            <div class="inline-flex pl-4 pt-2">
+                                @if( Auth::user()->name === $room->room_creator_name )
+                                    <a class="inline-flex px-2 py-1 ml-2 mb-2 inline-flex justify-center items-center gap-2 rounded-md border-2 border-green-700 font-semibold text-green-700 hover:text-white hover:bg-green-700 hover:border-green-700 focus:outline-none focus:ring-2 focus:ring-green-700 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800" href="/rooms/{{ $room->id }}/edit">編集</a>
+                                    <form action="/rooms/{{ $room->id }}" id="form_{{ $room->id }}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class='px-2 py-1 ml-2 mb-2 inline-flex justify-center items-center gap-2 rounded-md border-2 border-red-500 font-semibold text-red-500 hover:text-white hover:bg-red-500 hover:border-red-500 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800' type="button" onclick="deleteRoom( {{ $room->id }} )">削除</button>
+                                    </form>
+                                @else
+                                    <a></a>
+                                @endif
+                            </div>
                     </div>
                 </div>
             </div>
             <div class="py-2">
                 <div>
-                    <div class="pt-32 pl-60 pr-60">
+                    <div class="pt-44 pl-60 pr-60">
                         <ul class="border-solid  bg-violet-50  rounded-lg" id="list_message">
                             @foreach( $chats as $chat)
                                <li class="pl-3 pt-1 text-xs">{{ $chat->user->name }}</li> 
                                <li class="px-2 ml-2 mb-2 inline-flex justify-center items-center border-2 bg-white  border-gray-100 rounded-md font-semibold ">{{ $chat->body }}</li>
                                @isset($game_predicts->where('user_id',$chat->user_id)->first()->choice)
-                                          @if($game_predicts->where('user_id',$chat->user_id)->first()->choice == 0)<p class="px-2 ml-2 mb-2 inline-flex bg-purple-600 rounded-lg text-xs text-purple-600 text-gray-50">勝敗予想：{{$room->first_bench_team}}勝利</P>
-                                          @else<p class="px-2 ml-2 mb-2 inline-flex bg-purple-600 rounded-lg text-xs text-purple-600 text-gray-50">勝敗予想：{{$room->third_bench_team}}勝利</P>
+                                          @if($game_predicts->where('user_id',$chat->user_id)->first()->choice == 0)<p class="px-2 ml-2 mb-2 inline-flex bg-purple-600 rounded-lg text-xs text-purple-600 text-white">勝敗予想：{{$room->first_bench_team}}勝利</P>
+                                          @else<p class="px-2 ml-2 mb-2 inline-flex bg-purple-600 rounded-lg text-xs text-purple-600 text-white">勝敗予想：{{$room->third_bench_team}}勝利</P>
                                           @endif
-                               @else<a class="px-2 ml-2 mb-2 inline-flex bg-purple-600 rounded-lg text-xs text-purple-600 text-gray-50" href="/game_predict/{{ $room->id }}">勝敗予想をしよう</a>
+                               @else<a class="px-2 ml-2 mb-2 inline-flex bg-purple-600 rounded-lg text-xs text-purple-600 text-white" href="/game_predict/{{ $room->id }}">勝敗予想をしよう</a>
                                @endisset
                             @endforeach
                         </ul>
                             <div class="pt-1">
-                                <div class="w-full pt-2 ">
-                                    <div class="border-solid   rounded-lg">
-                                        <input type="hidden" name="chat[room_id]" value="{{$room->id}}">
-                                        <input class="border-purple-500 focus:ring-purple-500 focus:ring-white-500 focus:outline-none appearance-none  text-sm leading-6 text-slate-900 placeholder-slate-400 rounded-md py-2 pl-10 ring-1 ring-slate-200 shadow-sm" type="text"  name="chat[body]" id="input_message" value="{{ old('chat.body') }}"/>
-                                        <button class="px-2 py-1 ml-2 mb-2 inline-flex justify-center items-center gap-2 rounded-md border-2 border-purple-200 font-semibold text-purple-500 hover:text-white hover:bg-purple-500 hover:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-200 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800" type="button" onclick="onsubmit_Form({{ $room->id }}); return false;">送信</button>
-                                        <p class="body__error" style="color:red">{{ $errors->first('chat.body') }}</p>
-                                    
-                                        <div class="edit">
-                                            @if( Auth::user()->name === $room->room_creator_name )
-                                               <a href="/rooms/{{ $room->id }}/edit">編集画面へ</a>
-                                               <form action="/rooms/{{ $room->id }}" id="form_{{ $room->id }}" method="post">
-                                                   @csrf
-                                                   @method('DELETE')
-                                                   <button type="button" onclick="deleteRoom( {{ $room->id }} )">削除</button>
-                                               </form>
-                                            @else
-                                               <a></a>
-                                            @endif
+                                <div class="w-full pt-2 pl-2 inline-block ">
+                                    <div class="border-solid rounded-lg">
+                                        <div class="">
+                                            <input type="hidden" name="chat[room_id]" value="{{$room->id}}">
+                                            <input class=" pl-1 border-purple-500 focus:ring-purple-500 focus:ring-white-500 focus:outline-none appearance-none  text-sm leading-6 text-slate-900 placeholder-slate-400 rounded-md py-2 pl-10 ring-1 ring-slate-200 shadow-sm" type="text"  name="chat[body]" id="input_message" value="{{ old('chat.body') }}"/>
+                                            <button class="px-2 py-1 ml-2 mb-2 inline-flex justify-center items-center gap-2 rounded-md border-2 border-purple-200 font-semibold text-purple-500 hover:text-white hover:bg-purple-500 hover:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-200 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800" type="button" onclick="onsubmit_Form({{ $room->id }}); return false;">送信</button>
+                                            <p class="body__error" style="color:red">{{ $errors->first('chat.body') }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -61,7 +63,7 @@
                     </div>
                 </div>
             </div>
-        
+            </div>
             
         </body>
         <script>
@@ -144,14 +146,15 @@
                     elementName.textContent = name;
                     elementName.style.cssText = "padding: 11px 20px 0px 12px; font-size: small;";
                     elementMessage.textContent = strMessage;
-                    elementMessage.style.cssText = "padding: 0em 10px 0px 10px; font-weight: 600;background-color: white;display: inline; margin: 0em 10px 0px 10px; border-radius: 3px;";
+                    elementMessage.style.cssText = "padding: 0em 10px 0px 10px; margin-bottom: 16px; font-weight: 600;background-color: white;display: inline; margin: 0em 10px 0px 10px; border-radius: 3px;";
                     
                     //勝敗予想の処理
-                    if( gamePredict == null){
-                       elementGamePredict.textContent = "勝敗予想をしよう"
-                    }else{
-                       elementGamePredict.textContent = "勝敗予想："+ gamePredict +"勝利";
-                    }   
+                        if( gamePredict == null){
+                           elementGamePredict.textContent = "勝敗予想をしよう"
+                        }else{
+                           elementGamePredict.textContent = "勝敗予想："+ gamePredict +"勝利";
+                        }
+                    
                     elementGamePredict.style.cssText = "font-size: 12px; background-color: #9933FF; border-radius: 10px; color: white; padding: 0em 10px 0px 9px; display: inline;";
                     
                     elementLi.append( elementName );

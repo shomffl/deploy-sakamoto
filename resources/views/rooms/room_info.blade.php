@@ -16,7 +16,7 @@
     
         <div class="py-12">
         <body class="antialiased">
-            <div class="" >
+            <div class="bg-violet-50 ">
                     <div class="pt-16 pl-20 pb-1 pr-20">    
                         <div class=' border-solid  bg-white  rounded-lg bg-violet-50'>
                             <p class='px-2 py-1 ml-2 mb-2 text-xs font-bold'>{{ $room->created_at }}</p>

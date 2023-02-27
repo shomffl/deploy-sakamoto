@@ -38,8 +38,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/chat', [RoomController::class, 'store']);
     Route::post('/input', [ChatController::class, 'sendMessage']);
     Route::get('/rooms/mypage', [MypageController::class, 'mypage'])->name('mypage');
-    //Route::get('/chat/{room}/{id}', [ChatController::class, 'chat']);
-    //Route::get('/chat', [RoomController::class, 'chat']);
     Route::get('/game_predict/{room}',[GamePredictController::class, 'game_predict']);
     Route::post('/game_predict/first_bench_team', [GamePredictController::class, 'voteToFirstBenchTeam']);
     Route::post('/game_predict/third_bench_team', [GamePredictController::class, 'voteToThirdBenchTeam']);
