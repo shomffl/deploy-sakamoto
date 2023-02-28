@@ -106,18 +106,17 @@
                 {{-- テキストHTML要素の中身のクリア --}}
                 elementInputMessage.value = "";
             }
-            console.log("a");
             {{-- ページ読み込み後の処理 --}}
             window.addEventListener( "DOMContentLoaded", ()=>
             {
-                console.log("b");
+                
                 const elementListMessage = document.getElementById( "list_message" );
                 
                 {{-- Listen開始と、イベント発生時の処理の定義 --}}
-                window.Echo.channel('chat').listen( 'MessageSent', (e) =>
+                window.Echo.private('chat').listen( 'MessageSent', (e) =>
                 {
             
-　                  console.log("c");
+　               
 　                            
                     console.log(e);
                     {{-- メッセージの整形 --}}
