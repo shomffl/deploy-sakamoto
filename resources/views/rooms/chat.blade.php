@@ -64,7 +64,6 @@
                 </div>
             </div>
             </div>
-            
         </body>
         <script>
         
@@ -94,7 +93,6 @@
     
                 params = { 'message': strMessage , 'room_id':  room_id　};
                 
-                console.log(strMessage ,);
                 {{-- POSTリクエスト送信処理とレスポンス取得処理 --}}
                 axios
                     .post( '/input', params )
@@ -112,11 +110,10 @@
             window.addEventListener( "DOMContentLoaded", ()=>
             {
                 
-                
                 const elementListMessage = document.getElementById( "list_message" );
                 
                 {{-- Listen開始と、イベント発生時の処理の定義 --}}
-                window.Echo.private('chat').listen( 'MessageSent', (e) =>
+                window.Echo.channel('chat').listen( 'MessageSent', (e) =>
                 {
             
 　               

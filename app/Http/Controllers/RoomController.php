@@ -77,9 +77,9 @@ class RoomController extends Controller
     {
         //チャット表示件数制限処理
         $id = $room->id;
-        
+
         $chats = Chat::where('room_id', $id)->get();
-        
+
         return view('rooms/chat')->with(['room' => $room,'chats' => $chats,'game_predicts' => $room->game_predicts]);
     }
     //ルーム編集画面の表示

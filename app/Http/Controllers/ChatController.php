@@ -18,7 +18,6 @@ class ChatController extends Controller
     public function chat(Room $room, User $user)
     {
         $length = Chat::all()->count();
-
         $display = 8;
 
         $chats = Chat::offset($length-$display)->limit($display)->get();
